@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0d1117">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<title>Physics Playground</title>
+<link rel="manifest" href="manifest.json">
+<link rel="apple-touch-icon" href="icons/apple-touch-icon.svg">
+<link rel="icon" type="image/svg+xml" href="icons/icon-192.svg">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<header class="app-header">
+  <div class="brand">
+    <svg class="brand-mark" viewBox="0 0 32 32" aria-hidden="true">
+      <circle cx="16" cy="16" r="4" fill="#58a6ff"/>
+      <ellipse cx="16" cy="16" rx="13" ry="6" fill="none" stroke="#58a6ff" stroke-width="2" transform="rotate(-24 16 16)"/>
+      <circle cx="27" cy="10" r="2.4" fill="#f778ba"/>
+    </svg>
+    <span class="brand-name">Physics Playground</span>
+  </div>
+  <div class="scene-name" id="sceneName">Ragdoll Drop</div>
+</header>
+
+<main class="app-main">
+  <!-- DEMOS -->
+  <section id="tab-demos" class="tab-panel is-active" aria-label="Demos">
+    <div class="demo-layout">
+      <div class="canvas-wrap" id="canvasWrap">
+        <canvas id="world"></canvas>
+        <div class="toast" id="toast" aria-live="polite"></div>
+      </div>
+      <div class="demo-side">
+        <div class="hint-bar" id="hintBar"></div>
+        <div class="demo-controls">
+          <div class="scene-dots" id="sceneDots" role="tablist" aria-label="Demo scenes"></div>
+          <div class="control-row">
+            <button class="btn" id="btnReset" type="button">Reset</button>
+            <button class="btn" id="btnGravity" type="button" aria-pressed="true">Gravity: on</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- MODELS -->
+  <section id="tab-models" class="tab-panel" aria-label="3D Models">
+    <div class="demo-layout">
+      <div class="canvas-wrap" id="viewerWrap">
+        <canvas id="viewer"></canvas>
+        <div class="model-loading is-hidden" id="modelLoading" aria-live="polite">
+          <div class="ml-bar"><div class="ml-fill" id="modelLoadBar"></div></div>
+          <div class="ml-pct" id="modelLoadPct">0%</div>
+        </div>
+        <div class="terabox-card is-hidden" id="teraboxCard">
+          <div class="tb-title" id="teraboxName"></div>
+          <p class="tb-notes" id="teraboxNotes"></p>
+          <button class="btn" id="btnTerabox" type="button">Open TeraBox</button>
+        </div>
+        <div class="toast" id="modelToast" aria-live="polite"></div>
+      </div>
+      <div class="demo-side">
+        <div class="hint-bar"><b>1 finger</b> rotate &middot; <b>2 fingers</b> pinch zoom + pan</div>
+        <div class="viewer-name" id="viewerName">Models</div>
+        <div class="model-list" id="modelList" role="listbox" aria-label="Models"></div>
+        <div class="control-row">
+          <select class="clip-select" id="clipSelect" aria-label="Animation clip" disabled></select>
+          <button class="btn" id="btnModelPlay" type="button" aria-pressed="true">Pause</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- LIBRARY -->
+  <section id="tab-library" class="tab-panel" aria-label="Library">
+    <div class="library-body">
+      <h1>Library</h1>
+      <p>Everything in the physics sandbox, one hop away.</p>
+      <h2>GitHub repo</h2>
+      <div class="lib-list">
+        <a class="lib-card" href="https://github.com/mhvnsnt/blend-physics-playground/tree/main/addons"><span class="t">addons/</span><span class="d">Wiggle 2 (x2), Ragdoll Kitten, Molecular+, BlenRig, VRM spring bones</span></a>
+        <a class="lib-card" href="https://github.com/mhvnsnt/blend-physics-playground/tree/main/tools/physics-engines"><span class="t">tools/physics-engines/</span><span class="d">MuJoCo, PyBullet, Pymunk ragdoll demos + install</span></a>
+        <a class="lib-card" href="https://github.com/mhvnsnt/blend-physics-playground/tree/main/tools/character-gen"><span class="t">tools/character-gen/</span><span class="d">MB-Lab parametric character generator</span></a>
+        <a class="lib-card" href="https://github.com/mhvnsnt/blend-physics-playground/tree/main/examples/quaternius"><span class="t">examples/quaternius/</span><span class="d">6 CC0 rigged practice bodies (also viewable in MODELS)</span></a>
+        <a class="lib-card" href="https://github.com/mhvnsnt/blend-physics-playground/tree/main/examples/pantera-tail"><span class="t">examples/pantera-tail/</span><span class="d">Tail jiggle rig scripts + proof video</span></a>
+        <a class="lib-card" href="https://github.com/mhvnsnt/blend-physics-playground/tree/main/practice"><span class="t">practice/</span><span class="d">7 drill docs: posing, jiggle, cloth, ragdoll, binding, rigging, soft-body</span></a>
+        <a class="lib-card" href="https://github.com/mhvnsnt/blend-physics-playground/tree/main/scenes"><span class="t">scenes/</span><span class="d">demo_playground.blend + scarlett_playground.blend stages</span></a>
+        <a class="lib-card" href="https://github.com/mhvnsnt/blend-physics-playground/tree/main/scripts"><span class="t">scripts/</span><span class="d">Jiggle-bone setup, demo scene builders</span></a>
+        <a class="lib-card" href="https://github.com/mhvnsnt/blend-physics-playground/tree/main/docs"><span class="t">docs/</span><span class="d">Grey-area source leads (labeled by pull purpose)</span></a>
+      </div>
+      <h2>TeraBox</h2>
+      <div class="lib-list">
+        <a class="lib-card" href="https://www.terabox.com"><span class="t">/blend-physics-playground/grey-area/wrestling-moves/</span><span class="d">28 wrestling-move files (27 FBX + 1 GLB) — open in the TeraBox app/site, navigate to this folder</span></a>
+        <a class="lib-card" href="https://www.terabox.com"><span class="t">Scarlett_tqZQxXx.blend</span><span class="d">514 MB practice model — All Files root on TeraBox</span></a>
+      </div>
+      <h2>Sources &amp; licenses</h2>
+      <p class="fine">three.js r147 + fflate (MIT), matter-js (MIT), hammer.js (MIT), marked (MIT) — vendored in <code>vendor/</code> with licenses. Quaternius models CC0. Addons GPL-3.0 (see their SOURCE.md files).</p>
+    </div>
+  </section>
+
+  <!-- DRILLS -->
+  <section id="tab-drills" class="tab-panel" aria-label="Drills">
+    <div class="drill-list" id="drillList"></div>
+    <article class="drill-reader is-hidden" id="drillReader">
+      <button class="btn btn-back" id="drillBack" type="button">← All drills</button>
+      <div class="drill-body" id="drillBody"></div>
+    </article>
+  </section>
+
+  <!-- ABOUT -->
+  <section id="tab-about" class="tab-panel" aria-label="About">
+    <div class="about-body">
+      <h1>Physics Playground</h1>
+      <p>A pocket physics lab. Three interactive Matter.js demos with full
+      multi-touch gestures, plus the playground's practice drills to read
+      on the go.</p>
+      <h2>Gestures</h2>
+      <ul class="gesture-list">
+        <li><b>Tap</b> — spawn a ball (or select a body)</li>
+        <li><b>Double-tap</b> — shockwave blast</li>
+        <li><b>Press &amp; hold</b> — grab a body, release to fling it</li>
+        <li><b>Drag</b> — pull bodies around on a spring</li>
+        <li><b>Pinch</b> — zoom the camera</li>
+        <li><b>Two-finger drag</b> — pan the camera</li>
+        <li><b>Swipe ←/→</b> — switch demo scenes</li>
+      </ul>
+      <h2>Open-source stack</h2>
+      <ul class="stack-list">
+        <li><b>matter-js</b> — 2D physics engine (MIT)</li>
+        <li><b>hammer.js</b> — touch gesture recognition (MIT)</li>
+        <li><b>marked</b> — markdown rendering (MIT)</li>
+      </ul>
+      <p class="fine">Vendored dist files + licenses live in <code>vendor/</code>.
+      Works offline once loaded (service worker).</p>
+      <a class="btn btn-link" href="https://github.com/mhvnsnt/blend-physics-playground">GitHub repo →</a>
+    </div>
+  </section>
+</main>
+
+<nav class="tab-bar" aria-label="Main tabs">
+  <button class="tab-btn is-active" data-tab="tab-demos" type="button">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="3"/><ellipse cx="12" cy="12" rx="10" ry="4.5" fill="none" stroke="currentColor" stroke-width="1.8" transform="rotate(-24 12 12)"/></svg>
+    <span>Demos</span>
+  </button>
+  <button class="tab-btn" data-tab="tab-models" type="button">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l9 5v10l-9 5-9-5V7z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="M12 2v10m0 0l9-5m-9 5L3 7" stroke="currentColor" stroke-width="1.8"/></svg>
+    <span>Models</span>
+  </button>
+  <button class="tab-btn" data-tab="tab-drills" type="button">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5h16v14H4z" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M8 9h8M8 13h8M8 17h5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+    <span>Drills</span>
+  </button>
+  <button class="tab-btn" data-tab="tab-library" type="button">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 4h5v16H4zM10 4h5v16h-5zM16 4h4v16h-4z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg>
+    <span>Library</span>
+  </button>
+  <button class="tab-btn" data-tab="tab-about" type="button">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M12 10v6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><circle cx="12" cy="7.5" r="1.2" fill="currentColor"/></svg>
+    <span>About</span>
+  </button>
+</nav>
+
+<script src="vendor/matter-js/matter.min.js"></script>
+<script src="vendor/hammerjs/hammer.min.js"></script>
+<script src="vendor/marked/marked.min.js"></script>
+<script src="vendor/three/three.min.js"></script>
+<script src="vendor/three/fflate.min.js"></script>
+<script src="vendor/three/FBXLoader.js"></script>
+<script src="vendor/three/OrbitControls.js"></script>
+<script src="content/models-data.js"></script>
+<script src="app.js"></script>
+<script src="model-viewer.js"></script>
+</body>
+</html>
