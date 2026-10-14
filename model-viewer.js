@@ -1,4 +1,4 @@
-/* Physics Playground — 3D model viewer (Three.js r147 UMD).
+/* Ragdoll Wrestler — 3D model viewer (Three.js r147 UMD).
  * Separate IIFE from the Matter demos. Hammer.js is NOT attached here;
  * OrbitControls (r147 UMD) owns touch: 1-finger rotate, 2-finger dolly+pan. */
 (function () {

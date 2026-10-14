@@ -1,5 +1,5 @@
-/* Physics Playground service worker — offline app shell */
-const CACHE = 'physics-playground-v2';
+/* Ragdoll Wrestler service worker — offline app shell */
+const CACHE = 'ragdoll-wrestler-v1';
 const ASSETS = [
   './',
   'index.html',

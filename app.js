@@ -1,4 +1,4 @@
-/* Physics Playground — mobile PWA
+/* Ragdoll Wrestler — mobile PWA
  * Matter.js scenes + Hammer.js gestures. Vanilla, no build step. */
 (function () {
 'use strict';
