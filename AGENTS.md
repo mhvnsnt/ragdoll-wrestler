@@ -28,3 +28,9 @@ When a PR satisfies ALL merge conditions (GitHub says MERGEABLE, CI green, no-de
 The merge must be CLEAN and NON-DESTRUCTIVE: merge commits, never rebase/squash/force-push; resolve conflicts by keeping both sides' work — nothing lost, nothing clobbered, nothing destroyed on either side. Verify the merged result still builds and passes tests before calling it done.
 A PR that is red, conflicting, or would lose work stays OPEN with a comment naming the blocker — but the default for a clean, green PR is MERGE, never "leave it for the owner."
 Carve-outs (standing owner decisions, not overridden): never merge a DRAFT PR; never merge a PR the owner explicitly excluded.
+
+## Sourcing rule (Mars, 2026-11-19)
+
+"Anytime there's things that aren't in my Steam library just remember just go get them from wherever else they can be gotten from."
+
+"I own like hundreds of games on Xbox and anytime I mention certain games you just have to go get them because I own so many games that are like on disc and on Xbox and there's no way to actually get them to you but you have to go use the games in the commercial files and the actual source anyway."
