@@ -28,3 +28,11 @@ When a PR satisfies ALL merge conditions (GitHub says MERGEABLE, CI green, no-de
 The merge must be CLEAN and NON-DESTRUCTIVE: merge commits, never rebase/squash/force-push; resolve conflicts by keeping both sides' work — nothing lost, nothing clobbered, nothing destroyed on either side. Verify the merged result still builds and passes tests before calling it done.
 A PR that is red, conflicting, or would lose work stays OPEN with a comment naming the blocker — but the default for a clean, green PR is MERGE, never "leave it for the owner."
 Carve-outs (standing owner decisions, not overridden): never merge a DRAFT PR; never merge a PR the owner explicitly excluded.
+
+## Pre-made parts first (Mars, 2026-11-20)
+
+Don't hand-build what already exists and works well. Before decoding/decrypting/reverse-engineering/building anything from scratch, go get the pre-made part from wherever it already exists and work FROM it.
+
+Mars's machine metaphor: "you don't build a battery for a machine or a cog for a machine from scratch you order it online and you just replace the cog."
+
+Spend the work on the innovative parts, not re-doing what's already well-built. Source categories: commercial games; open source; closed-source teardowns; fan translation / ROM hacking scene; modding community; fan-made tools and docs; decompilations (decomps) and recompilations (recomps); community knowledge (Xentax/ZenHAX, TCRF, wikis, FAQs, archive.org).
